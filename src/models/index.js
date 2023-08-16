@@ -4,16 +4,19 @@ const config = require("../config/index")[env];
 const db = {};
 
 const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  config
+    config.database,
+    config.username,
+    config.password,
+    config
 );
 
+db.board = require("./board")(sequelize, Sequelize);
+db.user = require("./user")(sequelize, Sequelize);
+
 Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+    if (db[modelName].associate) {
+        db[modelName].associate(db);
+    }
 });
 
 db.sequelize = sequelize;
