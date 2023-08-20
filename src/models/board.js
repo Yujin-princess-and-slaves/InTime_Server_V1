@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     const Board = sequelize.define(
         "board",
         {
-            id: {
+            boardId: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
@@ -25,6 +25,5 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 
-    Board.associate = (db) => {};
     return Board;
 };
