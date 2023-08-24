@@ -36,6 +36,8 @@ router.put("/:boardId", async (req, res) => {
   }
 });
 
+// git test
+
 router.delete("/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
 
