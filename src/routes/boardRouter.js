@@ -5,6 +5,44 @@ const models = require("../models");
 
 router.use(express.json());
 
+router.get("/:boardId", async (req, res) => {
+  try {
+    const boardId = req.params.boardId;
+    const post = await models.board.findOne({ where: { boardId: boardId } });
+
+    if (!post) {
+      res
+        .status(404)
+        .json({ success: false, message: "게시물을 찾을 수 없습니다" });
+    } else {
+      res.status(200).json(post);
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, error: "서버 오류" });
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const postList = await models.board.findAll({
+      order: [
+        ["title", "ASC"],
+        ["content", "ASC"],
+        ["date", "ASC"],
+      ],
+    });
+
+    postList.forEach((post) => {
+      post.content = post.content.substring(0, 150);
+    });
+
+    res.send(postList);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "서버 오류" });
+  }
+});
+
 router.put("/:boardId", async (req, res) => {
   const id = req.params.boardId;
   const { title, content } = req.body;
