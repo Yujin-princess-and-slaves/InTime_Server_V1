@@ -32,9 +32,9 @@ router.get("/", async (req, res) => {
       ],
     });
 
-    postList.forEach((post) => {
-      post.content = post.content.substring(0, 150);
-    });
+    // postList.forEach((post) => {
+    //   post.content = post.content.substring(0, 150);
+    // });
 
     res.send(postList);
   } catch (err) {
