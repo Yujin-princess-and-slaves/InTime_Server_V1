@@ -25,16 +25,8 @@ router.get("/:boardId", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const postList = await models.board.findAll({
-      order: [
-        ["title", "ASC"],
-        ["content", "ASC"],
-        ["date", "ASC"],
-      ],
+      order: [["boardId", "DESC"]],
     });
-
-    // postList.forEach((post) => {
-    //   post.content = post.content.substring(0, 150);
-    // });
 
     res.send(postList);
   } catch (err) {
